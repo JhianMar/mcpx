@@ -1,0 +1,70 @@
+{
+	"name": "mcpx",
+	"version": "0.7.0",
+	"description": "Token-efficient MCP client: TypeScript schemas (not JSON), LLM-friendly syntax, batch calls, TOON output. Perfect for Claude/LLM automations.",
+	"type": "module",
+	"scripts": {
+		"build": "bun build ./src/cli.ts --compile --minify --sourcemap --outfile ./dist/mcpx",
+		"check": "bun format:check && bun lint && bun typecheck",
+		"format": "oxfmt .",
+		"format:check": "oxfmt --check .",
+		"lint": "oxlint --type-aware --tsconfig tsconfig.json",
+		"typecheck": "tsgo --project tsconfig.json --noEmit",
+		"test": "vitest run",
+		"clean": "rimraf dist",
+		"prepublishOnly": "bun check && bun test && bun build",
+		"mcpx:list": "bun src/cli.ts list",
+		"mcpx:call": "bun src/cli.ts call"
+	},
+	"dependencies": {
+		"@modelcontextprotocol/sdk": "^1.10.1",
+		"@toon-format/toon": "^0.8.0",
+		"acorn": "^8.15.0",
+		"commander": "^12.1.0",
+		"confbox": "^0.2.2",
+		"es-toolkit": "^1.41.0",
+		"ora": "^8.0.1",
+		"rolldown": "^1.0.0-beta.47",
+		"zod": "^3.25.76"
+	},
+	"devDependencies": {
+		"@types/estree": "^1.0.8",
+		"@types/node": "^24.10.0",
+		"@typescript/native-preview": "7.0.0-dev.20251104.1",
+		"oxfmt": "^0.11.0",
+		"oxlint": "^1.25.0",
+		"oxlint-tsgolint": "^0.5.0",
+		"rimraf": "^6.0.1",
+		"typescript": "^5.6.3",
+		"vitest": "^4.0.7"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/AIGC-Hackers/mcpx"
+	},
+	"keywords": [
+		"mcp",
+		"model-context-protocol",
+		"mcp-client",
+		"cli",
+		"typescript",
+		"anthropic",
+		"claude",
+		"llm-tools",
+		"token-efficient",
+		"batch-operations",
+		"toon-format",
+		"oauth",
+		"cursor",
+		"codex",
+		"automation"
+	],
+	"author": "Ethan Huo",
+	"contributors": [
+		"Sweetistics"
+	],
+	"license": "MIT",
+	"publishConfig": {
+		"access": "public"
+	}
+}
