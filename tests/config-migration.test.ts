@@ -149,7 +149,13 @@ describe("config load order", () => {
 function seedHomeConfigs(fakeHomeDir: string): void {
   const codexSource = path.join(IMPORT_FIXTURES, ".codex", "config.toml");
   copyFile(codexSource, path.join(fakeHomeDir, ".codex", "mcp.toml"));
-  const windsurfSource = path.join(IMPORT_FIXTURES, "home", ".codeium", "windsurf", "mcp_config.json");
+  const windsurfSource = path.join(
+    IMPORT_FIXTURES,
+    "home",
+    ".codeium",
+    "windsurf",
+    "mcp_config.json",
+  );
   copyFile(windsurfSource, path.join(fakeHomeDir, ".codeium", "windsurf", "mcp_config.json"));
   const vscodeSource = path.join(
     IMPORT_FIXTURES,
@@ -160,7 +166,10 @@ function seedHomeConfigs(fakeHomeDir: string): void {
     "User",
     "mcp.json",
   );
-  copyFile(vscodeSource, path.join(fakeHomeDir, "Library", "Application Support", "Code", "User", "mcp.json"));
+  copyFile(
+    vscodeSource,
+    path.join(fakeHomeDir, "Library", "Application Support", "Code", "User", "mcp.json"),
+  );
   copyFile(vscodeSource, path.join(fakeHomeDir, ".config", "Code", "User", "mcp.json"));
   const appData = path.join(fakeHomeDir, "AppData", "Roaming");
   copyFile(vscodeSource, path.join(appData, "Code", "User", "mcp.json"));

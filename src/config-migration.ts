@@ -26,7 +26,9 @@ export interface MigrationResult {
   readonly wroteProjectConfig: boolean;
 }
 
-export async function migrateLegacyConfigs(options: MigrationOptions = {}): Promise<MigrationResult> {
+export async function migrateLegacyConfigs(
+  options: MigrationOptions = {},
+): Promise<MigrationResult> {
   const rootDir = options.rootDir ?? process.cwd();
   const logger = options.logger ?? console;
   const projectConfigPath = path.resolve(rootDir, "mcp.json");
@@ -37,10 +39,17 @@ export async function migrateLegacyConfigs(options: MigrationOptions = {}): Prom
   const imports = resolveImportKinds(legacyConfig?.imports);
 
   const wroteProjectConfig = await ensureProjectConfig(projectConfigPath, legacyConfig);
-  const { wroteHomeConfig, importedServers } = await writeHomeConfig(homeConfigPath, imports, rootDir);
+  const { wroteHomeConfig, importedServers } = await writeHomeConfig(
+    homeConfigPath,
+    imports,
+    rootDir,
+  );
 
   if (wroteHomeConfig || wroteProjectConfig) {
-    const createdTargets = [wroteProjectConfig ? projectConfigPath : undefined, wroteHomeConfig ? homeConfigPath : undefined]
+    const createdTargets = [
+      wroteProjectConfig ? projectConfigPath : undefined,
+      wroteHomeConfig ? homeConfigPath : undefined,
+    ]
       .filter(Boolean)
       .join(", ");
     logger.warn?.(`mcpx migrated legacy config to ${createdTargets}`);
@@ -65,7 +74,10 @@ function resolveImportKinds(imports: ImportKind[] | undefined): ImportKind[] {
   return [...imports, ...DEFAULT_IMPORTS.filter((kind) => !imports.includes(kind))];
 }
 
-async function ensureProjectConfig(projectConfigPath: string, legacyConfig: RawConfig | null): Promise<boolean> {
+async function ensureProjectConfig(
+  projectConfigPath: string,
+  legacyConfig: RawConfig | null,
+): Promise<boolean> {
   if (!legacyConfig || Object.keys(legacyConfig.mcpServers).length === 0) {
     return false;
   }
@@ -131,5 +143,7 @@ async function fileExists(filePath: string): Promise<boolean> {
 }
 
 function isErrno(error: unknown, code: string): error is NodeJS.ErrnoException {
-  return Boolean(error && typeof error === "object" && (error as NodeJS.ErrnoException).code === code);
+  return Boolean(
+    error && typeof error === "object" && (error as NodeJS.ErrnoException).code === code,
+  );
 }

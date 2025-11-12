@@ -5,9 +5,8 @@
 	"type": "module",
 	"scripts": {
 		"build": "bun build ./src/cli.ts --compile --minify --sourcemap --outfile ./dist/mcpx",
-		"check": "bun format:check && bun lint && bun typecheck",
+		"check": "bun format && bun lint && bun typecheck",
 		"format": "oxfmt .",
-		"format:check": "oxfmt --check .",
 		"lint": "oxlint --type-aware --tsconfig tsconfig.json",
 		"typecheck": "tsgo --project tsconfig.json --noEmit",
 		"test": "vitest run",
@@ -17,10 +16,10 @@
 		"mcpx:call": "bun src/cli.ts call"
 	},
 	"dependencies": {
-		"@modelcontextprotocol/sdk": "^1.10.1",
-		"@toon-format/toon": "^0.8.0",
+		"@modelcontextprotocol/sdk": "^1.21.1",
+		"@toon-format/toon": "^1.0.0",
 		"acorn": "^8.15.0",
-		"commander": "^12.1.0",
+		"commander": "^14.0.2",
 		"confbox": "^0.2.2",
 		"es-toolkit": "^1.41.0",
 		"ora": "^8.0.1",
@@ -29,14 +28,14 @@
 	},
 	"devDependencies": {
 		"@types/estree": "^1.0.8",
-		"@types/node": "^24.10.0",
-		"@typescript/native-preview": "7.0.0-dev.20251104.1",
-		"oxfmt": "^0.11.0",
-		"oxlint": "^1.25.0",
-		"oxlint-tsgolint": "^0.5.0",
+		"@types/node": "^24.10.1",
+		"@typescript/native-preview": "7.0.0-dev.20251112.1",
+		"oxfmt": "^0.13.0",
+		"oxlint": "^1.28.0",
+		"oxlint-tsgolint": "^0.5.1",
 		"rimraf": "^6.0.1",
 		"typescript": "^5.6.3",
-		"vitest": "^4.0.7",
+		"vitest": "^4.0.8",
 		"zod": "3"
 	},
 	"repository": {
