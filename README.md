@@ -5,6 +5,36 @@ _Token-efficient MCP client built for LLMs and humans._
 
 MCPX helps you lean into the "code execution" workflows highlighted in Anthropic's **Code Execution with MCP** guidance: discover the MCP servers already configured on your system, call them directly, and compose richer automations in TypeScript. All of that works out of the box -- no boilerplate, no schema spelunking.
 
+## Installation
+
+### Homebrew
+
+```bash
+# Add the tap
+brew tap AIGC-Hackers/mcpx
+
+# Install mcpx
+brew install mcpx
+
+# Or install in one command
+brew install AIGC-Hackers/mcpx/mcpx
+```
+
+### Run without installing
+
+```bash
+bunx mcpx list
+```
+
+### Alternate tap (steipete)
+
+```bash
+brew tap steipete/tap
+brew install steipete/tap/mcpx
+```
+
+> The steipete tap publishes alongside MCPX 0.3.2. Run `brew update` before reinstalling if you see an older build.
+
 ## MCPX vs Other MCP Clients
 
 | Feature | MCPX | Typical MCP Client |
@@ -264,101 +294,7 @@ Use cases:
 
 See [examples/README.md](examples/README.md) and [examples/batch-calls.txt](examples/batch-calls.txt) for complete examples.
 
-## Installation
-
-### Homebrew
-
-```bash
-# Add the tap
-brew tap AIGC-Hackers/mcpx
-
-# Install mcpx
-brew install mcpx
-
-# Or install in one command
-brew install AIGC-Hackers/mcpx/mcpx
-```
-
-### Run without installing
-
-```bash
-bunx mcpx list
-```
-
-### Homebrew (steipete/tap)
-
-```bash
-brew tap steipete/tap
-brew install steipete/tap/mcpx
-```
-
-> The tap publishes alongside MCPX 0.3.2. If you run into issues with an older tap install, run `brew update` before reinstalling.
-
-## One-shot calls from code
-
-```ts
-import { callOnce } from "mcpx";
-
-const result = await callOnce({
-	server: "firecrawl",
-	toolName: "crawl",
-	args: { url: "https://anthropic.com" },
-});
-
-console.log(result); // raw MCP envelope
-```
-
-`callOnce` automatically discovers the selected server (including Cursor/Claude/Codex/Windsurf/VS Code imports), handles OAuth prompts, and closes transports when it finishes. It is ideal for manual runs or wiring MCPX directly into an agent tool hook.
-
-## Compose Automations with the Runtime
-
-```ts
-import { createRuntime } from "mcpx";
-
-const runtime = await createRuntime();
-
-const tools = await runtime.listTools("context7");
-const result = await runtime.callTool("context7", "resolve-library-id", {
-	args: { libraryName: "react" },
-});
-
-console.log(result); // prints JSON/text automatically because the CLI pretty-prints by default
-await runtime.close(); // shuts down transports and OAuth sessions
-```
-
-Reach for `createRuntime()` when you need connection pooling, repeated calls, or advanced options such as explicit timeouts and log streaming. The runtime reuses transports, refreshes OAuth tokens, and only tears everything down when you call `runtime.close()`.
-
-## Compose Tools in Code
-
-The runtime API is built for agents and scripts, not just humans at a terminal.
-
-```ts
-import { createRuntime, createServerProxy } from "mcpx";
-
-const runtime = await createRuntime();
-const chrome = createServerProxy(runtime, "chrome-devtools");
-const linear = createServerProxy(runtime, "linear");
-
-const snapshot = await chrome.takeSnapshot();
-console.log(snapshot.text());
-
-const docs = await linear.searchDocumentation({
-	query: "automations",
-	page: 0,
-});
-console.log(docs.json());
-```
-
-Friendly ergonomics baked into the proxy and result helpers:
-
-- Property names map from camelCase to kebab-case tool names (`takeSnapshot` -> `take_snapshot`).
-- Positional arguments map onto schema-required fields automatically, and option objects respect JSON-schema defaults.
-- Results are wrapped in a `CallResult`, so you can choose `.text()`, `.json()`, `.content()`, or access `.raw` when you need the full envelope.
-
-Drop down to `runtime.callTool()` whenever you need explicit control over arguments, metadata, or streaming options.
-
-
-Call `mcpx list <server>` any time you need the TypeScript-style signature, optional parameter hints, and sample invocations that match the CLI's function-call syntax.
+Need runtime or automation samples? Head to [docs/tool-calling.md](docs/tool-calling.md) and [docs/cli-reference.md](docs/cli-reference.md). Call `mcpx list <server>` any time you need the TypeScript-style signature, optional parameter hints, and sample invocations that match the CLI's function-call syntax.
 
 ## Configuration Reference
 
@@ -390,16 +326,6 @@ What MCPX handles for you:
 - First run populates `~/.mcpx/mcp.json` by migrating Cursor/Claude/Codex/Windsurf/VS Code configs; legacy `imports` arrays are only read during that migration helper.
 
 Provide `configPath` or `rootDir` to CLI/runtime calls when you juggle multiple config files side by side.
-
-## Testing and CI
-
-| Command | Purpose |
-| --- | --- |
-| `bun run check` | Oxfmt formatting plus Oxlint/tsgolint gate. |
-| `bun run build` | Compile to standalone binary (emits `dist/mcpx`). |
-| `bun run test` | Vitest unit and integration suites (streamable HTTP fixtures included). |
-
-CI runs the same trio via GitHub Actions.
 
 ## Debug Hanging Servers Quickly
 
